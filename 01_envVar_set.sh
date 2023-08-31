@@ -15,7 +15,7 @@ mkdir -p $logdir
 
 # declare namelist
 export namelistdir=./namelistlog
-export namelistwrf=namelist_WRFchem371.input
+export namelistwrf=namelist_WRFchem415.input
 mkdir -p $namelistdir
 
 # namelist in:
@@ -23,7 +23,7 @@ mkdir -p $namelistdir
 # D:\UEA\research skill\wrf-chem\project_UEA\9_MOZART_mosaic_MEIC_lambert\2_namelist\wrfchem_actualRun\actual_start_run_2022May\MOZART\6_LongTermSim
 
 # chem_opt = 0, namelist
-export namelistreal=namelist_WRFchem371_realnoChem.input
+export namelistreal=namelist_WRFchem415_realnoChem.input
 
 # camchem dir
 export camchemdir=/camchem/dir/
@@ -41,6 +41,11 @@ export endyear=2017
 export endmonth=08
 export endday=01
 
+#==== echo all to wrfchem_irr_diag_d01 =============
+rm -rf $targetwrfchemdir/wrfchem_irr_diag_d01
+echo all >> $targetwrfchemdir/wrfchem_irr_diag_d01
+
+#==== writing the namelist.input
 
 cat > ${namelistdir}/${namelistwrf} <<EOF
 &time_control
@@ -416,7 +421,7 @@ cat > ${namelistdir}/${namelistreal} <<EOF
  /
 
  &chem
- irr_opt = 1
+ !irr_opt = 1
  kemit                               = 8,         ! number of vertical levels in the emissions input data file
  chem_opt                            = 0!202, 202, 202,             ! for real. chemistry option, 201 = MOZART-MOSAIC (4 bins + simplified SOA + no aqeuous chemistry), 202 = MOZART-MOSAIC (4 bins + VBS SOA + aqeuous chemistry).
  bioemdt                             = 30, 3.0, 3.0,              !* set as previous self-test run, timestep, biogenic, minutes
